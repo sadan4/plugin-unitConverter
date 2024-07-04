@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { i18n } from "@webpack/common";
 import { settings } from ".";
 
 interface regexes{
@@ -93,6 +94,13 @@ const regexes: regexes = {
                 let ozs = (parseFloat(groups[1])* 28.35).toFixed(2);
                 return `${ozs}g`
             },
+        },
+        milesPerHour: {
+            regex: /(\d+(?:\.\d+)?) ?(m(?:p|\/)h)/gi,
+            convert(...groups) {
+                let mph = (parseFloat(groups[1])*1.609).toFixed(2);
+                return `${mph}km/h`;
+            },
         }
     },
     // matches metric untis, converts them into imperial
@@ -139,12 +147,19 @@ const regexes: regexes = {
             },
         },
         kilograms: {
-        regex: /(\d+(?:\.\d+)?) ?(kg|kilos?)/gi,
-        convert(...groups) {
-            const kg = (parseFloat(groups[1])*2.205).toFixed(2);
-            return `${kg}lb(s)`
+            regex: /(\d+(?:\.\d+)?) ?(kg|kilos?)/gi,
+            convert(...groups) {
+                const kg = (parseFloat(groups[1])*2.205).toFixed(2);
+                return `${kg}lb(s)`
+            },
         },
-    }
+        kilometersPerHour: {
+            regex: /(\d+(?:\.\d+)?) ?(km?p?\/?h)/gi,
+            convert(...groups) {
+                const kph = (parseFloat(groups[1]) / 1.609).toFixed(2);
+                return `${kph}mph`;
+            },
+        }
     }
 
 };
