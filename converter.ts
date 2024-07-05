@@ -39,7 +39,7 @@ const regexes: regexes = {
         // },
         // leaving this one in because it is commonly used for something like 5'9'' for a persons height
         feetInchesMark: {
-            regex: /(\d+)(') ?(\d+(?:\.\d+)?)("|'')/g,
+            regex: /(\d+)(') ?(\d+(?:\.\d+)?)("|'')?/g,
             convert(...groups) {
                 let ftin = parseFloat(groups[1])/3.281;
                 ftin += parseFloat(groups[3])/39.37;
