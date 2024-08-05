@@ -25,6 +25,13 @@ interface regexes{
 const regexes: regexes = {
     // matches imperial units, converts them to metric
     imperial: {
+        miles: {
+            regex: /(\d+(?:\.\d+)?) ?(mi(?:les)?)/gm,
+            convert(...groups) {
+                const km = (parseFloat(groups[1]) * 1.609).toFixed(2)
+                return `${km}km`
+            },
+        },
         farenheight: {
             regex: /(-?\d+(?:\.\d+)?)°?(f)(?!\w)/ig,
             convert(...groups) {
