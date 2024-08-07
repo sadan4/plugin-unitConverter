@@ -66,14 +66,14 @@ const regexes: regexes = {
             },
         },
         inchesWord: {
-            regex: /(?<!\d+ *(?:f(?:ee|oo)?t) *)(\d+(?:\.\d+)?) *(in(?:ches?)?)/ig,
+            regex: /(?<!\d+ *(?:f(?:ee|oo)?t) *)(\d+(?:\.\d+)?) *(in(?:ch(?:es)?)?)/ig,
             convert(...groups) {
-                const inches = (parseFloat(groups[1])/2.54).toFixed(2);
+                const inches = (parseFloat(groups[1])*2.54).toFixed(2);
                 return `${inches}cm`;
             },
         },
         feetInchesWord: {
-            regex: /(\d+) *(f(?:ee|oo)?t) *(\d+(?:\.\d+)?) *(in(?:ches?)?)/ig,
+            regex: /(\d+) *(f(?:ee|oo)?t) *(\d+(?:\.\d+)?) *(in(?:ch(?:es)?)?)/ig,
             convert(...groups) {
                 let ftin = parseFloat(groups[1])/3.281;
                 ftin += parseFloat(groups[3])/39.37;
