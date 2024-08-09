@@ -51,7 +51,7 @@ export function ConvertIcon({ height = 24, width = 24, className }: {
         </svg>
     );
 }
-export function ConverterAccessory({ message }: {message: Message}) {
+export function ConverterAccessory({ message }: { message: Message }) {
     const [conversion, setConversion] = useState<string>("");
     conversions.set(message.id, setConversion);
     if (!conversion) return null;

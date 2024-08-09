@@ -21,12 +21,11 @@ import "./style.css";
 import { addAccessory } from "@api/MessageAccessories";
 import { addButton } from "@api/MessagePopover";
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore } from "@webpack/common";
 
 import { convert } from "./converter";
-import { conversions,ConverterAccessory, ConvertIcon } from "./ConverterAccessory";
+import { conversions, ConverterAccessory, ConvertIcon } from "./ConverterAccessory";
 
 
 export const settings = definePluginSettings({
@@ -37,14 +36,14 @@ export const settings = definePluginSettings({
             {
                 default: true,
                 label: "Imperial",
-                value: "imperial",
+                value: "imperial"
             },
             {
                 label: "Metric",
                 value: "metric"
             }
         ]
-    },
+    }
     // invert: {
     //     type: OptionType.BOOLEAN,
     //     default: false,
@@ -70,13 +69,13 @@ export default definePlugin({
                 icon: ConvertIcon,
                 message,
                 channel: ChannelStore.getChannel(message.channel_id),
-                onClick: async () => {
+                onClick: async() => {
                     const setConversion = conversions.get(message.id);
-                    if(!setConversion) return;
+                    if (!setConversion) return;
                     setConversion(convert(message.content));
                 }
             };
         });
     },
-    settings,
+    settings
 });
