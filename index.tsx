@@ -18,8 +18,6 @@
 
 import "./style.css";
 
-import { addAccessory } from "@api/MessageAccessories";
-import { addButton } from "@api/MessagePopover";
 import { definePluginSettings } from "@api/Settings";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore } from "@webpack/common";
@@ -60,22 +58,22 @@ export default definePlugin({
             id: 521819891141967883n
         }
     ],
-    start(){
-        addAccessory("vc-converter", props => <ConverterAccessory message={props.message}/>);
-        addButton("vc-converter", message => {
-            if (!message.content) return null;
-            return {
-                label: "Convert Units",
-                icon: ConvertIcon,
-                message,
-                channel: ChannelStore.getChannel(message.channel_id),
-                onClick: async() => {
-                    const setConversion = conversions.get(message.id);
-                    if (!setConversion) return;
-                    setConversion(convert(message.content));
-                }
-            };
-        });
+    renderMessageAccessory(props) {
+        return <ConverterAccessory message={props.message} />;
+    },
+    renderMessagePopoverButton(message) {
+        if (!message.content) return null;
+        return {
+            label: "Convert Units",
+            icon: ConvertIcon,
+            message,
+            channel: ChannelStore.getChannel(message.channel_id),
+            onClick: async () => {
+                const setConversion = conversions.get(message.id);
+                if (!setConversion) return;
+                setConversion(convert(message.content));
+            }
+        };
     },
     settings
 });
